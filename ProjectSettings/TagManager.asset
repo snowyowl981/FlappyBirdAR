@@ -4,7 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PIPE
+  - GameManager
+  - CharacterSelectController
+  - Gold
+  - ElectricObstacle
+  - FireObstacle
+  - IceObstacle
+  - NormalObstacle
+  - TheGround
+  - PILLAR
+  - SCOREZONE
   layers:
   - Default
   - TransparentFX
