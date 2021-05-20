@@ -135,11 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground
       objectReference: {fileID: 0}
-    - target: {fileID: 2962322378545062080, guid: 4b6d54824fd8a5f4c975ee141e199f93,
-        type: 3}
-      propertyPath: m_TagString
-      value: GROUND
-      objectReference: {fileID: 0}
     - target: {fileID: 2962322378545062084, guid: 4b6d54824fd8a5f4c975ee141e199f93,
         type: 3}
       propertyPath: m_RootOrder
@@ -329,16 +324,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899200495864974681, guid: f4c6af5e7fb14624dbfa2ba10b71038b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5899200495864974687, guid: f4c6af5e7fb14624dbfa2ba10b71038b,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 106
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c6af5e7fb14624dbfa2ba10b71038b, type: 3}

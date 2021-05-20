@@ -21,6 +21,16 @@ public class ObjectManager : MonoBehaviour
     private float nextTime = 0;                                 // 기둥 생성 주기(1.5초)
     public float[] randomHeights = {0.2f, 0.3f, 0.4f, 0.5f};    // 기둥 높이값 저장 배열
 
+    // 필요 컴포넌트
+    private GameObject imgTarget;
+    private GameObject startPos;
+
+    void Awake()
+    {
+        imgTarget = GameObject.Find("ImageTarget");
+        startPos = GameObject.Find("StartPos");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -37,26 +47,44 @@ public class ObjectManager : MonoBehaviour
             nextTime = Time.time + 1.5f;        // 기둥 생성 주기
             
             // 기둥 생성
-            downPillars[j] = (GameObject) Instantiate(downPillar,
-                                                      new Vector3(0, 0.15f, 2.85f),
-                                                      Quaternion.identity);
+            if(imgTarget == null)
+            {
+                downPillars[j] = (GameObject) Instantiate(downPillar,
+                                                    new Vector3(0, 0.15f, 2.85f),
+                                                    Quaternion.identity);
 
-            upPillars[j] = (GameObject) Instantiate(upPillar,
-                                                      new Vector3(0, 3f, 2.85f),
-                                                      upPillar.transform.rotation);
+                upPillars[j] = (GameObject) Instantiate(upPillar,
+                                                        new Vector3(0, 3f, 2.85f),
+                                                        upPillar.transform.rotation);
 
-            scoreZones[j] = (GameObject) Instantiate(scoreZone,
-                                                      new Vector3(0, 1.95f - (0.25f * (3 - rNum)), 2.85f),
-                                                      Quaternion.identity);
+                scoreZones[j] = (GameObject) Instantiate(scoreZone,
+                                                        new Vector3(0, 1.95f - (0.25f * (3 - rNum)), 2.85f),
+                                                        Quaternion.identity);
+            }
+
+            else 
+            {
+                downPillars[j] = (GameObject) Instantiate(downPillar,
+                                                    startPos.transform.position + new Vector3(0, 0.15f, 0),
+                                                    startPos.transform.rotation);
+
+                upPillars[j] = (GameObject) Instantiate(upPillar,
+                                                    startPos.transform.position + new Vector3(0, 3f, 0),
+                                                    startPos.transform.rotation * Quaternion.Euler(0f, 0f, 180f));
+
+                scoreZones[j] = (GameObject) Instantiate(scoreZone,
+                                                    startPos.transform.position + new Vector3(0, 1.95f - (0.25f * (3 - rNum)), 0),
+                                                    startPos.transform.rotation);
+            }
             
             // 기둥 높이 조절
             downPillars[j].transform.localScale = new Vector3(1.5f,
-                                                              randomHeights[rNum],
-                                                              1.5f);
+                                                            randomHeights[rNum],
+                                                            1.5f);
 
             upPillars[j].transform.localScale = new Vector3(1.5f,
-                                                              randomHeights[3 - rNum],
-                                                              1.5f);
+                                                            randomHeights[3 - rNum],
+                                                            1.5f);
             if(++j == 3) j = 0;
         }
     }
