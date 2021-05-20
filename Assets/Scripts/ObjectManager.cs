@@ -36,7 +36,6 @@ public class ObjectManager : MonoBehaviour
             int rNum = Random.Range(0, 4);      // 기둥 높이값 사용할 랜덤 변수
             nextTime = Time.time + 1.5f;        // 기둥 생성 주기
             
-            Debug.Log(rNum);
             // 기둥 생성
             downPillars[j] = (GameObject) Instantiate(downPillar,
                                                       new Vector3(0, 0.15f, 2.85f),
@@ -62,7 +61,7 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    // 기둥 등속도운동, 제거
+    // 기둥 등속도운동 및 특정 좌표 이동시 제거
     void MovePillars()
     {
         for (int i=0; i<3; i++)

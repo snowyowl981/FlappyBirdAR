@@ -15,6 +15,11 @@ public class PlayerMove : MonoBehaviour
     // 필요 컴포넌트
     private Rigidbody birdRig;
     private Transform birdTr;
+    public GameManager gameManager;
+
+    // 필요 변수
+    public static bool isDie = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +57,21 @@ public class PlayerMove : MonoBehaviour
         birdRig.velocity = Vector3.up * jumpForce;
     }
 
-    void OnCollisionEnter(Collision coll)
+    public void OnCollisionEnter(Collision coll)
     {
-        if(coll.gameObject.tag == "PIPE")
+        if(coll.gameObject.tag == "PILLAR" || coll.gameObject.tag == "GROUND")
         {
-            Debug.Log("DEAD");
+            //Debug.Log($"Dead by {coll.gameObject.name}");
+        }
+    }
+
+    IEnumerator OnTriggerEnter(Collider collider)
+    {
+        if(collider.gameObject.tag == "SCOREZONE")
+        {
+            gameManager.score++;
+            gameManager.UpdateScore();
+            yield return new WaitForSeconds(2f);
         }
     }
 }
