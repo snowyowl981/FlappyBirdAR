@@ -12,13 +12,17 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float fallSpeed;
 
-    // 필요 컴포넌트
-    private Rigidbody birdRig;
+    // 플레이어 컴포넌트
+    public Rigidbody birdRig;
     private Transform birdTr;
+    private Touch touch;
+    public Animator anim;
+
+    // 필요 컴포넌트
     public GameManager gameManager;
 
     // 필요 변수
-    public static bool isDie = false;
+    public bool isDie = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +30,8 @@ public class PlayerMove : MonoBehaviour
         // 오브젝트 변수 할당
         birdRig = GetComponent<Rigidbody>();
         birdTr = GetComponent<Transform>();
-        // 중력 설정
+        anim = GetComponent<Animator>();
+
         //Physics.gravity = new Vector3(0, fallSpeed, 0);
         birdRig.useGravity = false;
     }
@@ -34,11 +39,17 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 중력 설정
         Physics.gravity = new Vector3(0, fallSpeed, 0);
-        if(Input.GetMouseButtonDown(0))
+
+        if(GameManager.isStart && isDie == false)
         {
-            Jump();
+            if(Input.GetMouseButtonDown(0))
+            {
+                Jump();
+            }
         }
+
         if (birdRig.velocity.y > 0)
         {
             float jumpAngle = Mathf.Lerp(birdTr.localRotation.x, 30f, birdRig.velocity.y /2);
@@ -62,6 +73,7 @@ public class PlayerMove : MonoBehaviour
         if(coll.gameObject.tag == "PILLAR" || coll.gameObject.tag == "GROUND")
         {
             //Debug.Log($"Dead by {coll.gameObject.name}");
+            gameManager.GameOver();
         }
     }
 
