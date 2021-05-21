@@ -17,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     private Transform birdTr;
     private Touch touch;
     public Animator anim;
+    public GameObject sky;
 
     // 필요 컴포넌트
     public GameManager gameManager;
@@ -31,6 +32,7 @@ public class PlayerMove : MonoBehaviour
         birdRig = GetComponent<Rigidbody>();
         birdTr = GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        sky = GameObject.Find("Sky");
 
         //Physics.gravity = new Vector3(0, fallSpeed, 0);
         birdRig.useGravity = false;
@@ -59,6 +61,11 @@ public class PlayerMove : MonoBehaviour
         {
             float fallAngle = Mathf.Lerp(birdTr.localRotation.x, 90f, -birdRig.velocity.y /2);
             birdTr.localRotation = Quaternion.Euler(fallAngle, birdTr.localRotation.y, 0);
+        }
+
+        if (birdTr.transform.position.y > sky.transform.position.y)
+        {
+            birdTr.transform.position = sky.transform.position;
         }
     }
 
